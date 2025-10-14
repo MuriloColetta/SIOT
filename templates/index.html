@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Controle de LEDs com Arduino via Web</h1>
+    
+    <div class="container">
+        <h2>LED 1 (Verde)</h2>
+        <button class="on" onclick="controlLed('1', 'on')">Ligar</button>
+        <button class="off" onclick="controlLed('1', 'on')">Desligar</button>
+    </div>
+
+    <div class="container">
+        <h2>LED 2 (Vermelho)</h2>
+        <button class="on" onclick="controlLed('2', 'on')">Ligar</button>
+        <button class="off" onclick="controlLed('2', 'on')">Desligar</button>
+    </div>
+
+    <script>
+        function controlLed(ledNum, action) {
+            // A função fetch envia uma requisição para o nosso servidor Python
+            fetch('/control/${ledNum}/${action}')
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data); // Mostra a resposta do servidor no console do navegador
+                })
+                .catch(erro => {
+                    console.erro('Erro:', error);
+                });
+        }
+    </script>
+</body>
+</html>
